@@ -1,0 +1,21 @@
+import java.sql.*;
+
+public class EmployeeData {
+    public static void main(String[] args) {
+        String url = "jdbc:mysql://localhost:3306/mydatabase"; // Change database name
+        String user = "root"; // Change username if needed
+        String password = "password"; // Change password if needed
+
+        try (Connection conn = DriverManager.getConnection(url, user, password);
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery("SELECT * FROM Employee")) {
+
+            System.out.println("EmpID | Name | Salary");
+            while (rs.next()) {
+                System.out.println(rs.getInt("EmpID") + " | " + rs.getString("Name") + " | " + rs.getDouble("Salary"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}
